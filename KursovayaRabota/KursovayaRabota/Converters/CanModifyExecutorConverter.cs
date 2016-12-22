@@ -12,6 +12,7 @@ namespace KursovayaRabota.Converters
 {
     public class CanModifyExecutorConverter : IValueConverter
     {
+        int i = 0;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return new CanModifyWrapper<Executor>((Executor)value);
