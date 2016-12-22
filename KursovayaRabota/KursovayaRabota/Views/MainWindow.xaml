@@ -1,0 +1,1132 @@
+﻿<Window x:Class="KursovayaRabota.Views.MainWindow"
+        x:Name="MainWindowView"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KursovayaRabota"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:converters="clr-namespace:KursovayaRabota.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="400"
+        Width="800"
+        MinHeight="400"
+        MinWidth="800">
+
+
+
+    <Window.Resources>
+
+        <converters:CanModifyTeamConverter x:Key="CanModifyTeamConverter" />
+        <converters:CanModifyExecutorConverter x:Key="CanModifyExecutorConverter" />
+        <converters:CanModifyTaskConverter x:Key="CanModifyTaskConverter" />
+
+
+        <Path x:Key="IconAdd"
+              x:Shared="False"
+              Stretch="Uniform"
+              Stroke="Transparent"
+              StrokeThickness="1"
+              Data="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M38.5,28H28v11c0,1.104-0.896,2-2,2
+	s-2-0.896-2-2V28H13.5c-1.104,0-2-0.896-2-2s0.896-2,2-2H24V14c0-1.104,0.896-2,2-2s2,0.896,2,2v10h10.5c1.104,0,2,0.896,2,2
+	S39.604,28,38.5,28z"
+              Fill="{DynamicResource MyYellow}" />
+        <Path x:Key="IconCross"
+              x:Shared="False"
+              Stretch="Uniform"
+              Stroke="Transparent"
+              StrokeThickness="1"
+              Fill="{DynamicResource MyYellow}">
+            <Path.Data>
+                <GeometryGroup>
+                    <PathGeometry Figures="M44.373,7.603c-10.137-10.137-26.632-10.138-36.77,0c-10.138,10.138-10.137,26.632,0,36.77s26.632,10.138,36.77,0
+		C54.51,34.235,54.51,17.74,44.373,7.603z M36.241,36.241c-0.781,0.781-2.047,0.781-2.828,0l-7.425-7.425l-7.778,7.778
+		c-0.781,0.781-2.047,0.781-2.828,0c-0.781-0.781-0.781-2.047,0-2.828l7.778-7.778l-7.425-7.425c-0.781-0.781-0.781-2.048,0-2.828
+		c0.781-0.781,2.047-0.781,2.828,0l7.425,7.425l7.071-7.071c0.781-0.781,2.047-0.781,2.828,0c0.781,0.781,0.781,2.047,0,2.828
+		l-7.071,7.071l7.425,7.425C37.022,34.194,37.022,35.46,36.241,36.241z" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path x:Key="EditButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Fill="{DynamicResource MyYellow}"
+              Stroke="Black">
+            <Path.Data>
+                <GeometryGroup>
+                    <PathGeometry Figures="M0.523,51.933l-0.497,2.085c-0.016,0.067-0.02,0.135-0.022,0.202C0.004,54.234,0,54.246,0,54.259
+		c0.001,0.114,0.026,0.225,0.065,0.332c0.009,0.025,0.019,0.047,0.03,0.071c0.049,0.107,0.11,0.21,0.196,0.296
+		c0.095,0.095,0.207,0.168,0.328,0.218c0.121,0.05,0.25,0.075,0.379,0.075c0.077,0,0.155-0.009,0.231-0.027l2.086-0.497
+		L0.523,51.933z" />
+                    <PathGeometry Figures="M52.618,2.631c-3.51-3.508-9.219-3.508-12.729,0L3.827,38.693C3.81,38.71,3.8,38.731,3.785,38.749
+		c-0.021,0.024-0.039,0.05-0.058,0.076c-0.053,0.074-0.094,0.153-0.125,0.239c-0.009,0.026-0.022,0.049-0.029,0.075
+		c-0.003,0.01-0.009,0.02-0.012,0.03l-2.495,10.48L5.6,54.182l10.48-2.495c0.027-0.006,0.051-0.021,0.077-0.03
+		c0.034-0.011,0.066-0.024,0.099-0.039c0.072-0.033,0.139-0.074,0.201-0.123c0.024-0.019,0.049-0.033,0.072-0.054
+		c0.008-0.008,0.018-0.012,0.026-0.02l36.063-36.063C56.127,11.85,56.127,6.14,52.618,2.631z M17.157,47.992l0.354-3.183
+		L39.889,22.43c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L16.097,43.395l-4.773,0.53l0.53-4.773l22.38-22.378
+		c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L10.44,37.738l-3.183,0.354L34.94,10.409l9.9,9.9L17.157,47.992z
+		 M46.254,18.895l-9.9-9.9l1.414-1.414l9.9,9.9L46.254,18.895z M49.082,16.067l-9.9-9.9l1.415-1.415l9.9,9.9L49.082,16.067z" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path x:Key="RemoveButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Fill="{DynamicResource MyYellow}"
+              Stroke="Black">
+            <Path.Data>
+                <GeometryGroup>
+                    <PathGeometry Figures="M15,3h-1V2c0-1.104-0.896-2-2-2H5C3.896,0,3,0.896,3,2v1H2C1.448,3,1,3.448,1,4s0.448,1,1,1v8
+			c0,2.206,1.794,4,4,4h5c2.206,0,4-1.794,4-4V5c0.552,0,1-0.448,1-1S15.552,3,15,3z M5,2h7v1H5V2z M13,13c0,1.104-0.896,2-2,2H6
+			c-1.104,0-2-0.896-2-2V5h1h7h1V13z" />
+                    <PathGeometry Figures="M5.5,6.5C5.225,6.5,5,6.725,5,7v6c0,0.275,0.225,0.5,0.5,0.5S6,13.275,6,13V7
+			C6,6.725,5.775,6.5,5.5,6.5z" />
+                    <PathGeometry Figures="M7.5,6.5C7.225,6.5,7,6.725,7,7v6c0,0.275,0.225,0.5,0.5,0.5S8,13.275,8,13V7
+			C8,6.725,7.775,6.5,7.5,6.5z" />
+                    <PathGeometry Figures="M9.5,6.5C9.225,6.5,9,6.725,9,7v6c0,0.275,0.225,0.5,0.5,0.5S10,13.275,10,13V7
+			C10,6.725,9.775,6.5,9.5,6.5z" />
+                    <PathGeometry Figures="M11.5,6.5C11.225,6.5,11,6.725,11,7v6c0,0.275,0.225,0.5,0.5,0.5S12,13.275,12,13V7
+			C12,6.725,11.775,6.5,11.5,6.5z" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path x:Key="InfoButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Fill="{DynamicResource PanelColor}"
+              Data="M39.264,6.736c-8.982-8.981-23.545-8.982-32.528,0c-8.982,8.982-8.981,23.545,0,32.528c8.982,8.98,23.545,8.981,32.528,0
+			C48.245,30.281,48.244,15.719,39.264,6.736z M25.999,33c0,1.657-1.343,3-3,3s-3-1.343-3-3V21c0-1.657,1.343-3,3-3s3,1.343,3,3V33z
+			 M22.946,15.872c-1.728,0-2.88-1.224-2.844-2.735c-0.036-1.584,1.116-2.771,2.879-2.771c1.764,0,2.88,1.188,2.917,2.771
+			C25.897,14.648,24.746,15.872,22.946,15.872z">
+
+        </Path>
+        <Path x:Key="LinkButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Fill="{DynamicResource PanelColor}"
+              Data="m22,0c-12.2,0-22,9.8-22,22s9.8,22 22,22 22-9.8 22-22-9.8-22-22-22zm-5.2,24.4l-1.4,1.4c-0.4,0.4-1,0.4-1.4,0l-2.5-2.5c-1.6-1.6-2.5-3.7-2.5-6 0-4.6 3.8-8.4 8.4-8.4 2.2,0 4.4,0.9 6,2.5l2.5,2.5c0.4,0.4 0.4,1 0,1.4l-1.4,1.4c-0.4,0.4-1,0.4-1.4,0l-2.5-2.5c-0.8-0.8-1.9-1.3-3.1-1.3-2.4,0-4.4,2-4.4,4.4 0,1.2 0.5,2.3 1.3,3.1l2.5,2.5c0.2,0.5 0.2,1.1-0.1,1.5zm.5-5.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l6.6,6.6c0.4,0.4 0.4,1 0,1.4l-1.4,1.4c-0.4,0.4-1,0.4-1.4,0l-6.6-6.6c-0.4-0.4-0.4-1 3.55271e-15-1.4zm9.3,16.3c-2.2,0-4.4-0.9-6-2.5l-2.5-2.5c-0.4-0.4-0.4-1 0-1.4l1.4-1.4c0.4-0.4 1-0.4 1.4,0l2.5,2.5c0.8,0.8 1.9,1.3 3.1,1.3 2.4,0 4.4-2 4.4-4.4 0-1.2-0.5-2.3-1.3-3.1l-2.5-2.5c-0.4-0.4-0.4-1 0-1.4l1.4-1.4c0.4-0.4 1-0.4 1.4,0l2.5,2.5c1.6,1.6 2.5,3.7 2.5,6 0.1,4.5-3.7,8.3-8.3,8.3z">
+        </Path>
+        <Path x:Key="ExitButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Stroke="Transparent"
+              StrokeThickness="5"
+              Fill="{DynamicResource MyYellow}"
+              Data="M199.725,0v36.025H85.211v421.66l114.514,0.094v36.459l209.085-37.555l0.216-418.867L199.725,0z M234.404,230.574
+		c7.022,0,12.715,7.408,12.715,16.545c0,9.139-5.692,16.545-12.715,16.545s-12.715-7.406-12.715-16.545
+		C221.688,237.982,227.382,230.574,234.404,230.574z M119.211,423.713V70.025h80.514v353.753L119.211,423.713z" />
+        <Path x:Key="SaveButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              
+             Stroke="Black"
+              Fill="{DynamicResource MyYellow}"
+              Data="M357,0H51C22.95,0,0,22.95,0,51v357c0,28.05,22.95,51,51,51h357c28.05,0,51-22.95,51-51V102L357,0z M229.5,408
+			c-43.35,0-76.5-33.15-76.5-76.5s33.15-76.5,76.5-76.5c43.35,0,76.5,33.15,76.5,76.5S272.85,408,229.5,408z M306,153H51V51h255V153
+			z"/>
+        <Path x:Key="UploadButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Stroke="Black"
+              Fill="{DynamicResource MyYellow}"
+              Data="M524.326,297.352c-15.896-19.89-36.21-32.782-60.959-38.684c7.81-11.8,11.704-24.934,11.704-39.399
+		c0-20.177-7.139-37.401-21.409-51.678c-14.273-14.272-31.498-21.411-51.675-21.411c-18.083,0-33.879,5.901-47.39,17.703
+		c-11.225-27.41-29.171-49.393-53.817-65.95c-24.646-16.562-51.818-24.842-81.514-24.842c-40.349,0-74.802,14.279-103.353,42.83
+		c-28.553,28.544-42.825,62.999-42.825,103.351c0,2.474,0.191,6.567,0.571,12.275c-22.459,10.469-40.349,26.171-53.676,47.106
+		C6.661,299.594,0,322.43,0,347.179c0,35.214,12.517,65.329,37.544,90.358c25.028,25.037,55.15,37.548,90.362,37.548h310.636
+		c30.259,0,56.096-10.711,77.512-32.12c21.413-21.409,32.121-47.246,32.121-77.516C548.172,339.944,540.223,317.248,524.326,297.352
+		z M362.729,289.648c-1.813,1.804-3.949,2.707-6.42,2.707h-63.953v100.502c0,2.471-0.903,4.613-2.711,6.42
+		c-1.813,1.813-3.949,2.711-6.42,2.711h-54.826c-2.474,0-4.615-0.897-6.423-2.711c-1.804-1.807-2.712-3.949-2.712-6.42V292.355
+		H155.31c-2.662,0-4.853-0.855-6.563-2.563c-1.713-1.714-2.568-3.904-2.568-6.566c0-2.286,0.95-4.572,2.852-6.855l100.213-100.21
+		c1.713-1.714,3.903-2.57,6.567-2.57c2.666,0,4.856,0.856,6.567,2.57l100.499,100.495c1.714,1.712,2.562,3.901,2.562,6.571
+		C365.438,285.696,364.535,287.845,362.729,289.648z" />
+        <Path x:Key="DownloadButtonIcon"
+              x:Shared="False"
+              Stretch="Uniform"
+              Stroke="Black"
+              Fill="{DynamicResource MyYellow}"
+              Data="M149.997,0C67.158,0,0.003,67.161,0.003,149.997S67.158,300,149.997,300s150-67.163,150-150.003S232.837,0,149.997,0z
+			 M209.453,220.955c-1.644,0-3.268-0.091-4.866-0.254c-1.46,0.163-2.944,0.254-4.448,0.254h-37.656l40.504-40.87
+			c2.342-2.365,3.079-5.983,1.849-9.137c-1.227-3.156-4.165-5.218-7.431-5.218h-19.958v-42.662c0-5.14-4.171-9.311-9.311-9.311
+			h-28.231c-5.14,0-9.311,4.168-9.311,9.311v42.662h-21.529c-0.016,0-0.034,0-0.047,0c-4.43,0-8.019,3.737-8.019,8.354
+			c0,2.63,1.162,4.969,2.977,6.5l40.011,40.372H83.794c-21.916,0-39.684-17.771-39.684-39.684c0-18.256,12.327-33.615,29.108-38.245
+			c1.854-15.541,15.058-27.598,31.094-27.598c4.85,0,9.428,1.136,13.526,3.105c7.973-22.188,29.188-38.053,54.118-38.053
+			c29.896,0,54.455,22.821,57.227,51.988c15.779,7.42,26.709,23.454,26.709,42.045C255.891,200.163,235.101,220.955,209.453,220.955
+			z" />
+
+        <sys:Int32 x:Key="NameLenght">20</sys:Int32>
+        <sys:Double x:Key="CreateEditPanelHeight">70</sys:Double>
+        <sys:Double x:Key="InfoPanelWidth">200</sys:Double>
+
+        <ItemContainerTemplate x:Key="ButtonTemplate">
+            <Border BorderThickness="0"
+                    Background="Aquamarine">
+                <Button>
+
+                </Button>
+            </Border>
+        </ItemContainerTemplate>
+
+        <SolidColorBrush x:Key="TitleBrush"
+                         Color="#FF515151" />
+        <SolidColorBrush x:Key="TextColor"
+                         Color="White" />
+        <SolidColorBrush x:Key="PanelColor"
+                         Color=" #FF00658B" />
+        <SolidColorBrush x:Key="ListItemsBrush"
+                         Color="#8206A9" />
+        <SolidColorBrush x:Key="MyYellow"
+                         Color="#FFFFFF41" />
+        <RadialGradientBrush x:Key="ControlsBackgroungRadialBrush">
+            <GradientStop Color="#FF2AB1FF"
+                          Offset="0" />
+            <GradientStop Color="#FF08C7FF"
+                          Offset="1" />
+            <GradientStop Color="#FF2AB3F7"
+                          Offset="0.562" />
+        </RadialGradientBrush>
+
+        <Style x:Key="TextBoxStyle"
+               TargetType="TextBlock">
+            <Setter Property="FontFamily"
+                    Value="Tekton Pro" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+        </Style>
+        <Style x:Key="MenuButtonStyle"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="{StaticResource ControlsBackgroungRadialBrush}" />
+            <Setter Property="BorderBrush"
+                    Value="Black" />
+            <Setter Property="BorderThickness"
+                    Value="5" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+        </Style>
+        <Style x:Key="CommonBackgrounStyle"
+               TargetType="Grid">
+            <Setter Property="Background"
+                    Value="Black" />
+        </Style>
+        <Style x:Key="MainGridBackgrounStyle"
+               TargetType="Grid">
+            <Setter Property="Background"
+                    Value="{StaticResource MyYellow}" />
+        </Style>
+        <Style x:Key="BasicItemTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="FontFamily"
+                    Value="Trebuchet MS" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF41" />
+            <Setter Property="TextWrapping"
+                    Value="Wrap" />
+        </Style>
+        <Style x:Key="AddButtonStyle"
+               TargetType="Button">
+            <Setter Property="Template"
+                    Value="{DynamicResource AddButtonTemplate}">
+            </Setter>
+
+        </Style>
+        <Style x:Key="CloseButtonStyle"
+               TargetType="Button">
+            <Setter Property="Template"
+                    Value="{DynamicResource CloseButtonTemplate}">
+            </Setter>
+
+        </Style>
+        <Style x:Key="ExitButtonStyle"
+               TargetType="Button">
+            <Setter Property="Template"
+                    Value="{DynamicResource ExitButtonTemplate}">
+            </Setter>
+
+        </Style>
+        <Style x:Key="SaveButtonStyle"
+               TargetType="Button">
+            <Setter Property="Template"
+                    Value="{DynamicResource SaveButtonTemplate}">
+            </Setter>
+
+        </Style>
+
+
+        <DataTemplate x:Key="TeamListItem">
+            <Border Margin="3"
+                    CornerRadius="10"
+                    BorderBrush="White"
+                    BorderThickness="2"
+                    Background="{StaticResource TitleBrush}">
+                <TextBlock Margin="5"
+                           Text="{Binding Path=Value.Name}"
+                           Style="{StaticResource BasicItemTextBlockStyle}" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="ExecutorListItem">
+            <Border Margin="3"
+                    CornerRadius="10"
+                    BorderBrush="White"
+                    BorderThickness="2"
+                    Background="{StaticResource TitleBrush}">
+                <Grid  Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding Path=Value.Name}"
+                               Style="{StaticResource BasicItemTextBlockStyle}" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Path=Value.Post}"
+                               Style="{StaticResource BasicItemTextBlockStyle}"
+                               Foreground="LightGreen"
+                               TextAlignment="Right" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TaskListItem">
+            <Border Margin="3"
+                    CornerRadius="10"
+                    BorderBrush="White"
+                    BorderThickness="2"
+                    Background="{StaticResource TitleBrush}">
+
+                <Grid Margin="5">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding Path=Value.Name}"
+                               Style="{StaticResource BasicItemTextBlockStyle}" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Path=Value.Purpose}"
+                               Style="{StaticResource BasicItemTextBlockStyle}"
+                               Foreground="Aqua" />
+                    <TextBlock Grid.Column="4"
+                               Text="{Binding Path=Value.State}"
+                               Style="{StaticResource BasicItemTextBlockStyle}"
+                               Foreground="LightGreen" />
+                    <TextBlock Grid.Column="6"
+                               Text="{Binding Path=Value.Importance}"
+                               Style="{StaticResource BasicItemTextBlockStyle}"
+                               Foreground="Red"
+                               TextAlignment="Right" />
+                </Grid>
+            </Border>
+
+
+        </DataTemplate>
+
+        <ControlTemplate x:Key="AddButtonTemplate">
+            <ContentControl Content="{StaticResource IconAdd}"
+                            Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="CloseButtonTemplate">
+            <ContentControl  Content="{StaticResource IconCross}" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="EditButtonTemplate">
+            <ContentControl  Content="{StaticResource EditButtonIcon}"
+                             Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="RemoveButtonTemplate">
+            <ContentControl  Content="{StaticResource RemoveButtonIcon}"
+                             Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="InfoButtonTemplate">
+            <ContentControl  Content="{StaticResource InfoButtonIcon}"
+                             Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="LinkButtonTemplate">
+            <ContentControl  Content="{StaticResource LinkButtonIcon}"
+                             Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="ExitButtonTemplate">
+            <ContentControl  Content="{StaticResource ExitButtonIcon}"
+                             Margin="2" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveButtonTemplate">
+            <Grid>  
+                <TextBlock Text="Save"/>
+                <ContentControl  Content="{StaticResource ExitButtonIcon}"
+                             Margin="2" />
+            </Grid>
+             
+        </ControlTemplate>
+
+
+    </Window.Resources>
+    <Border BorderBrush="Blue"
+            BorderThickness="1">
+        <Grid x:Name="MainGrid"
+              Style="{StaticResource MainGridBackgrounStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Row="0"
+                  Background="{StaticResource TitleBrush}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Stretch">
+                <!--TITLE-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Kursovaya rabota SE-218E    Author: Maxim Karlash"
+                               Foreground="{StaticResource TextColor}"
+                               TextAlignment="Left"
+                               FontSize="18"
+                               Margin="5"
+                               FontFamily="Kristen ITC" />
+                    <Button Grid.Column="2"
+                            Style="{StaticResource ExitButtonStyle}"
+                            Command="{Binding ExitCommand,Mode=OneWay}"
+                            CommandParameter="{Binding ElementName=MainWindowView}" />
+                </Grid>
+
+            </Grid>
+            <Grid Row="1">
+                <!--ListsGrid-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <!--LeftMenu-->
+                    <ColumnDefinition Width="3*" />
+                    <!--Lists-->
+                    <ColumnDefinition Width="Auto" />
+                    <!--RightMenu-->
+                </Grid.ColumnDefinitions>
+                <!--LeftMenu-->
+                <Grid Column="0"
+                      Style="{StaticResource CommonBackgrounStyle}"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Background="{StaticResource PanelColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding Path= EditItemCommand}"
+                            ToolTip="Edit"
+                            Margin="5"
+                            Content="{StaticResource EditButtonIcon}" />
+                    <Button Grid.Row="1"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding Path=DeleteItemCommand}"
+                            ToolTip="Remove"
+                            Margin="5"
+                            Content="{StaticResource RemoveButtonIcon}" />
+                    <CheckBox  Grid.Row="2">
+                        <CheckBox.Template>
+                            <ControlTemplate TargetType="CheckBox">
+                                <ToggleButton x:Name="toggleButton"
+                                              Content="{StaticResource LinkButtonIcon}"
+                                              ToolTip="Link"
+                                              HorizontalContentAlignment="Center"
+                                              VerticalContentAlignment="Center"
+                                              Foreground="{StaticResource TextColor}"
+                                              Margin="5"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch"
+                                              Background="{DynamicResource ControlsBackgroungRadialBrush}"
+                                              IsChecked="{Binding Path=Link ,Mode=TwoWay}">
+                                </ToggleButton>
+                                <ControlTemplate.Triggers>
+
+                                    <Trigger Property="IsChecked"
+                                             Value="True"
+                                             SourceName="toggleButton">
+                                        <Setter Property="Content"
+                                                Value="True" />
+                                    </Trigger>
+
+                                    <Trigger Property="Content"
+                                             Value="True">
+                                        <Setter Property="IsChecked"
+                                                Value="True" />
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </CheckBox.Template>
+                    </CheckBox>
+                    <CheckBox  Grid.Row="3"
+                               IsChecked="{Binding TestButton}">
+                        <CheckBox.Template>
+                            <ControlTemplate TargetType="CheckBox">
+                                <ToggleButton x:Name="toggleButton"
+                                              Content="{StaticResource InfoButtonIcon}"
+                                              ToolTip="Informaition"
+                                              HorizontalContentAlignment="Center"
+                                              VerticalContentAlignment="Center"
+                                              Foreground="{StaticResource TextColor}"
+                                              Margin="5"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch"
+                                              Background="{DynamicResource ControlsBackgroungRadialBrush}"
+                                              IsChecked="{Binding Path=ShowInfo ,Mode=TwoWay}">
+                                </ToggleButton>
+                                <ControlTemplate.Triggers>
+
+                                    <Trigger Property="IsChecked"
+                                             Value="True"
+                                             SourceName="toggleButton">
+                                        <Setter Property="Content"
+                                                Value="True" />
+                                    </Trigger>
+
+                                    <Trigger Property="Content"
+                                             Value="True">
+                                        <Setter Property="IsChecked"
+                                                Value="True" />
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </CheckBox.Template>
+                    </CheckBox>
+                    <Button Grid.Row="4"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding Path=UploadDataCommand}"
+                            ToolTip="Upload Data"
+                            Margin="5"
+                            Content="{StaticResource UploadButtonIcon}" />
+                    <Button Grid.Row="5"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding Path=DownloadDataCommand}"
+                            ToolTip="Download Data"
+                            Margin="5"
+                            Content="{StaticResource DownloadButtonIcon}" />
+
+                </Grid>
+                <!--Lists-->
+                <Grid Column="1">
+                    <Border  CornerRadius="10,0,10,0"
+                             BorderBrush="Black"
+                             Margin="5"
+                             Background="{StaticResource TitleBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <!--_________Titles-->
+                            <!--Teams-->
+                            <Grid Column="0"
+                                  Row="0"
+                                  Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="TEAMS"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Stretch"
+                                           TextAlignment="Center"
+                                           Style="{StaticResource TextBoxStyle}" />
+
+                                <Button Grid.Column="2"
+                                        Style="{StaticResource AddButtonStyle}"
+                                        Command="{Binding AddTeamCommand}"
+                                        ToolTip="Add team" />
+
+
+                            </Grid>
+                            <!--Executors-->
+                            <Grid Column="1"
+                                  Row="0"
+                                  Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Text="EXECUTORS"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Stretch"
+                                           TextAlignment="Center"
+                                           Style="{StaticResource TextBoxStyle}" />
+
+                                <Button Grid.Column="2"
+                                        Style="{StaticResource AddButtonStyle}"
+                                        Command="{Binding AddExecutorCommand}"
+                                        ToolTip="Add executor" />
+                            </Grid>
+                            <!--Tasks-->
+                            <Grid Column="2"
+                                  Row="0"
+                                  Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Text="TASKS"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Stretch"
+                                           TextAlignment="Center"
+                                           Style="{StaticResource TextBoxStyle}" />
+                                <Button Grid.Column="2"
+                                        Style="{StaticResource AddButtonStyle}"
+                                        Command="{Binding AddTaskCommand}"
+                                        ToolTip="Add task" />
+                            </Grid>
+
+                            <!--__________LISTS-->
+                            <!--Teams-->
+                            <Grid Column="0"
+                                  Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}"
+                                        Margin="5,0,5,5"
+                                        CornerRadius="10,0,10,0"
+                                        BorderBrush="Transparent">
+
+                                    <ListBox HorizontalContentAlignment="Stretch"
+                                             BorderBrush="Transparent"
+                                             Background="Transparent"
+                                             ItemTemplate="{StaticResource TeamListItem}"
+                                             ItemsSource="{Binding Path=MainModelInstance.Teams}"
+                                             SelectedItem="{Binding Path=MainModelInstance.SelectedTeam}"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction  Command="{Binding SelectedListCommand}"
+                                                                        CommandParameter="{Binding MainModelInstance.SelectedTeam}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+
+                                </Border>
+
+                            </Grid>
+                            <!--Executors-->
+                            <Grid Column="1"
+                                  Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}"
+                                        Margin="5,0,5,5"
+                                        CornerRadius="10,0,10,0"
+                                        BorderBrush="Transparent">
+
+                                    <ListBox  HorizontalContentAlignment="Stretch"
+                                              BorderBrush="Transparent"
+                                              Background="Transparent"
+                                              ItemTemplate="{StaticResource ExecutorListItem}"
+                                              ItemsSource="{Binding Path=MainModelInstance.Executors}"
+                                              SelectedItem="{Binding Path=MainModelInstance.SelectedExecutor}"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction  Command="{Binding SelectedListCommand}"
+                                                                        CommandParameter="{Binding MainModelInstance.SelectedExecutor}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+                                </Border>
+                            </Grid>
+                            <!--Tasks-->
+                            <Grid Column="2"
+                                  Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}"
+                                        Margin="5,0,5,5"
+                                        CornerRadius="10,0,10,0"
+                                        BorderBrush="Transparent">
+
+                                    <ListBox x:Name="list"
+                                             HorizontalContentAlignment="Stretch"
+                                             BorderBrush="Transparent"
+                                             Background="Transparent"
+                                             ItemTemplate="{StaticResource TaskListItem}"
+                                             ItemsSource="{Binding Path=MainModelInstance.Tasks,UpdateSourceTrigger=PropertyChanged}"
+                                             SelectedItem="{Binding Path=MainModelInstance.SelectedTask}"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction  Command="{Binding SelectedListCommand}"
+                                                                        CommandParameter="{Binding MainModelInstance.SelectedTask}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+
+
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+                <!--RightMenu-->
+                <Grid x:Name="InfoGrid"
+                      Grid.Column="2">
+                    <Border Margin="5"
+                            CornerRadius="10"
+                            BorderBrush="Transparent"
+                            Background="{StaticResource PanelColor}">
+
+                        <TextBlock Text="Information"
+                                   Margin="10"
+                                   Style="{StaticResource TextBoxStyle}" />
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <ei:DataTrigger Binding="{Binding Path=ShowInfo}"
+                                        Value="True"
+                                        Comparison="NotEqual">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="InfoGrid"
+                                                                       Storyboard.TargetProperty="Width">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="False" />
+                        </ei:DataTrigger>
+                        <ei:DataTrigger Binding="{Binding Path=ShowInfo}"
+                                        Value="True">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="InfoGrid"
+                                                                       Storyboard.TargetProperty="Width">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="{StaticResource InfoPanelWidth}">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="true" />
+                        </ei:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+            </Grid>
+
+            <!--EditItemMenu-->
+            <Grid Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <!--TeamEdit-->
+                <Grid Row="0"
+                      Background="{StaticResource PanelColor}"
+                      x:Name="TeamEditGrid">
+                    <Border Margin="5"
+                            BorderThickness="4"
+                            CornerRadius="5"
+                            BorderBrush="{StaticResource MyYellow}"
+                            Background="{StaticResource TitleBrush}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="auto" />
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="Name"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="2"
+                                     Text="{Binding MainModelInstance.EditingTeam.Name,UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="{StaticResource NameLenght}"
+                                     VerticalAlignment="Center" />
+                            <Button Grid.Column="2"
+                                    Grid.Row="2"
+                                    Content="Save"
+                                    ToolTip="Save"
+                                    Command="{Binding SaveTeamCommand}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="100" />
+                            <Button Grid.Column="2"
+                                    Grid.Row="0"
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    ToolTip="Close"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding CloseTeamEditMenuCommand}" />
+                        </Grid>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingTeam}"
+                                        Value="True"
+                                        Comparison="NotEqual">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TeamEditGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="False" />
+                        </ei:DataTrigger>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingTeam}"
+                                        Value="True">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TeamEditGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="{StaticResource CreateEditPanelHeight}">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="true" />
+                        </ei:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+                <!--ExecutorEdit-->
+                <Grid Row="1"
+                      x:Name="ExecutorEditGrid"
+                      Background="{StaticResource PanelColor}">
+                    <Border Margin="5"
+                            BorderThickness="4"
+                            CornerRadius="5"
+                            BorderBrush="{StaticResource MyYellow}"
+                            Background="{StaticResource TitleBrush}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="Name"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0"
+                                     Text="{Binding MainModelInstance.EditingExecutor.Name,UpdateSourceTrigger=PropertyChanged}"
+                                     Grid.Row="2"
+                                     MaxLength="{StaticResource NameLenght}"
+                                     VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2"
+                                       Grid.Row="0"
+                                       Text="Post"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="2"
+                                      Grid.Row="2"
+                                      SelectedItem="{Binding MainModelInstance.EditingExecutor.Post,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding Posts}"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="4"
+                                       Grid.Row="0"
+                                       Text="Team"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="4"
+                                      Grid.Row="2"
+                                      Text="{Binding MainModelInstance.EditingExecutor.Team.Name}"
+                                      SelectedItem="{Binding MainModelInstance.EditingExecutor.Team,Converter={StaticResource CanModifyTeamConverter},UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding MainModelInstance.Teams,UpdateSourceTrigger=PropertyChanged}"
+                                      DisplayMemberPath="Value.Name"
+                                      VerticalAlignment="Center" />
+                            <Button Grid.Column="6"
+                                    Grid.Row="2"
+                                    Content="Save"
+                                    ToolTip="Save"
+                                    Command="{Binding SaveExecutorCommand}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="100" />
+                            <Button Grid.Column="6"
+                                    Grid.Row="0"
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    ToolTip="Close"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding CloseExecutorEditMenuCommand}" />
+                        </Grid>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingExecutor}"
+                                        Value="True"
+                                        Comparison="NotEqual">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ExecutorEditGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="False" />
+                        </ei:DataTrigger>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingExecutor}"
+                                        Value="True">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ExecutorEditGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="{StaticResource CreateEditPanelHeight}">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="true" />
+                        </ei:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+                <!--EditTask-->
+                <Grid Row="2"
+                      x:Name="EditTaskGrid"
+                      Background="{StaticResource PanelColor}">
+                    <Border Margin="5"
+                            BorderThickness="4"
+                            CornerRadius="5"
+                            BorderBrush="{StaticResource MyYellow}"
+                            Background="{StaticResource TitleBrush}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="Name"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="2"
+                                     Text="{Binding MainModelInstance.EditingTask.Name,UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="{StaticResource NameLenght}"
+                                     VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2"
+                                       Grid.Row="0"
+                                       Text="Purpose"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="2"
+                                     Grid.Row="2"
+                                     Text="{Binding MainModelInstance.EditingTask.Purpose,UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="40"
+                                     VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="4"
+                                       Grid.Row="0"
+                                       Text="State"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="4"
+                                      Grid.Row="2"
+                                      SelectedItem="{Binding MainModelInstance.EditingTask.State,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding TaskStates}"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="6"
+                                       Grid.Row="0"
+                                       Text="Importance"
+                                       Foreground="{StaticResource MyYellow}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="6"
+                                      Grid.Row="2"
+                                      SelectedItem="{Binding MainModelInstance.EditingTask.Importance,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding TaskImportances}"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="8"
+                                       Grid.Row="0"
+                                       Text="Executor"
+                                       Foreground="{StaticResource MyYellow}"
+                                       TextAlignment="Left"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="8"
+                                      Grid.Row="2"
+                                      Text="{Binding MainModelInstance.EditingTask.Executor.Name}"
+                                      SelectedItem="{Binding MainModelInstance.EditingTask.Executor,Converter={StaticResource CanModifyExecutorConverter},UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding MainModelInstance.Executors,UpdateSourceTrigger=PropertyChanged}"
+                                      DisplayMemberPath="Value.Name"
+                                      VerticalAlignment="Center" />
+                            <Button Grid.Column="10"
+                                    Grid.Row="2"
+                                    Content="Save"
+                                    ToolTip="Save"
+                                    Command="{Binding SaveTaskCommand}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="100" />
+                            <Button Grid.Column="10"
+                                    Grid.Row="0"
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    ToolTip="Close"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding CloseTaskEditMenuCommand}" />
+                        </Grid>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingTask}"
+                                        Value="True"
+                                        Comparison="NotEqual">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="EditTaskGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="False" />
+                        </ei:DataTrigger>
+                        <ei:DataTrigger Binding="{Binding Path=IsEditingTask}"
+                                        Value="True">
+                            <ei:ControlStoryboardAction>
+                                <ei:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="EditTaskGrid"
+                                                                       Storyboard.TargetProperty="Height">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6"
+                                                                  Value="{StaticResource CreateEditPanelHeight}">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"
+                                                               Power="10" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </ei:ControlStoryboardAction.Storyboard>
+                            </ei:ControlStoryboardAction>
+                            <ei:ChangePropertyAction PropertyName="IsEnabled"
+                                                     Value="true" />
+                        </ei:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

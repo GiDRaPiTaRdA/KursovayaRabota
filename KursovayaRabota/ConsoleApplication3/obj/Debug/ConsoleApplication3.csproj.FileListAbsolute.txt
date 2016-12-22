@@ -1,0 +1,14 @@
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe.config
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\ConsoleApplication3.pdb
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\EntityFramework.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\EntityFramework.xml
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.csprojResolveAssemblyReference.cache
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.exe
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.pdb
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.Migrations.InitialCreate.resources
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.csproj.GenerateResource.Cache
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.Migrations.AddUrl.resources
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\ConsoleApplication3\obj\Debug\ConsoleApplication3.Migrations.AddUser.resources

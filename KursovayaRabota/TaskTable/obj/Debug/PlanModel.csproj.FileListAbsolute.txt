@@ -1,0 +1,9 @@
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\PlanModel.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\PlanModel.pdb
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\StaticResourse.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\StringHelper.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\StaticResourse.pdb
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\bin\Debug\StringHelper.pdb
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\obj\Debug\PlanModel.csprojResolveAssemblyReference.cache
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\obj\Debug\PlanModel.dll
+C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\TaskTable\obj\Debug\PlanModel.pdb
