@@ -13,18 +13,23 @@ using System.Threading.Tasks;
 namespace KursovayaRabota.Models
 {
     [ImplementPropertyChanged]
-    public class MainModel
+    public class MainModel 
     {
+
+        enum ModifingOption { Add, Edit, Null }
+
+        ModifingOption Option { get; set; }
+
         #region Delegates
         public delegate void MethodContainer();
         public delegate bool BoolMethodContainer();
-        public delegate void PropertyChanged(object sender, PropertyChangedEventArgs e);
+        public delegate void PropertyChangedMethod(object sender, PropertyChangedEventArgs e);
         #endregion
 
         #region Events
-        public event MethodContainer OnLastSelectedItemChanged= delegate { };
+        public event MethodContainer OnLastSelectedItemChanged = delegate { };
 
-        public event MethodContainer OnEditingTeam=delegate{};
+        public event MethodContainer OnEditingTeam = delegate { };
         public event MethodContainer OnEditingExecutor = delegate { };
         public event MethodContainer OnEditingTask = delegate { };
 
@@ -33,7 +38,7 @@ namespace KursovayaRabota.Models
         public event MethodContainer OnEditingTaskFinished = delegate { };
 
         public event BoolMethodContainer PreviewDeletingItem = delegate { return false; };
-        public event PropertyChanged OnEditingItemEdited = delegate { };
+        public event PropertyChangedMethod OnEditingItemEdited = delegate { };
         #endregion
 
         #region Bakground Fields
@@ -44,6 +49,8 @@ namespace KursovayaRabota.Models
         #endregion
 
         #region Properties
+        public bool Link { get; set; }
+
         public CanModifyWrapper<TaskInstance> SelectedTask
         {
             get
@@ -53,11 +60,7 @@ namespace KursovayaRabota.Models
             set
             {
                 selectedTask = value;
-                CanModifyWrapper<ICompanySegment> segment = new CanModifyWrapper<ICompanySegment>();
-                segment.Value = value.Value;
-                segment.CanEdit = value.CanEdit;
-                segment.CanDelete = value.CanDelete;
-                LastSelectedItem = segment;
+                SetSelectedItem(value);
             }
         }
         public CanModifyWrapper<Executor> SelectedExecutor
@@ -69,11 +72,7 @@ namespace KursovayaRabota.Models
             set
             {
                 selectedExecutor = value;
-                CanModifyWrapper<ICompanySegment> segment = new CanModifyWrapper<ICompanySegment>();
-                segment.Value = value.Value;
-                segment.CanEdit = value.CanEdit;
-                segment.CanDelete = value.CanDelete;
-                LastSelectedItem = segment;
+                SetSelectedItem(value);
             }
         }
         public CanModifyWrapper<Team> SelectedTeam
@@ -85,11 +84,7 @@ namespace KursovayaRabota.Models
             set
             {
                 selectedTeam = value;
-                CanModifyWrapper<ICompanySegment> segment = new CanModifyWrapper<ICompanySegment>();
-                segment.Value = value.Value;
-                segment.CanEdit = value.CanEdit;
-                segment.CanDelete = value.CanDelete;
-                LastSelectedItem = segment;
+                SetSelectedItem(value);
             }
         }
         public CanModifyWrapper<ICompanySegment> LastSelectedItem
@@ -117,27 +112,61 @@ namespace KursovayaRabota.Models
         public ObservableCollection<CanModifyWrapper<TaskInstance>> Tasks { get; set; }
         public ObservableCollection<CanModifyWrapper<Executor>> Executors { get; set; }
         public ObservableCollection<CanModifyWrapper<Team>> Teams { get; set; }
+
+        public ObservableCollection<CanModifyWrapper<TaskInstance>> LinkTasks
+        {
+            get
+            {
+                if (SelectedExecutor?.Value != null) {
+                    var a = new ObservableCollection<CanModifyWrapper<TaskInstance>>(Tasks.Where(task => SelectedExecutor.Value.Tasks.Any(t => t == task.Value)));
+                    return a;
+                }
+                else
+                    return null;
+            }
+        }
+
+        public ObservableCollection<CanModifyWrapper<Executor>> LinkExecutors
+        {
+            get
+            {
+                if (SelectedTeam?.Value != null)
+                {
+                    var a = new ObservableCollection<CanModifyWrapper<Executor>>(Executors.Where(executor => SelectedTeam.Value.Executors.Any(e => e == executor.Value)));
+                    return a;
+                }
+                    
+                else
+                    return null;
+            }
+        }
         #endregion
 
         #region Methods
         public void AddTeam()
         {
             EditingTeam = new Team();
+            Option = ModifingOption.Add;
             OnEditingTeam();
         }
         public void AddExecutor()
         {
             EditingExecutor = new Executor() { Team = Teams.FirstOrDefault()?.Value };
+            Option = ModifingOption.Add;
             OnEditingExecutor();
         }
         public void AddTask()
         {
             EditingTask = new TaskInstance() { Executor = Executors.FirstOrDefault()?.Value };
+            Option = ModifingOption.Add;
             OnEditingTask();
+
         }
 
         public void EditItem()
         {
+            Option = ModifingOption.Edit;
+
             if (lastSelectedItem != null)
             {
                 if (lastSelectedItem.Value as Team != null)
@@ -173,15 +202,14 @@ namespace KursovayaRabota.Models
 
         public void SaveTeam()
         {
-            if (Teams.Any(t => t.Value.Id == EditingTeam.Id))
+            if (Option==ModifingOption.Edit)
             {
-                Teams.First(t => t.Value.Id == EditingTeam.Id).Value = EditingTeam;
+                SelectedTeam.Value = EditingTeam;
                 Teams = new ObservableCollection<CanModifyWrapper<Team>>(Teams);
             }
-            else
+            else if (Option == ModifingOption.Add)
             {
                 Teams.Add(new CanModifyWrapper<Team>() { Value = EditingTeam, CanDelete = true, CanEdit = true });
-
             }
             (EditingTeam as INotifyPropertyChanged).PropertyChanged -= EditingItemEdited;
             EditingTeam = new Team();
@@ -189,27 +217,27 @@ namespace KursovayaRabota.Models
         }
         public void SaveExecutor()
         {
-            if (Executors.Any(t => t.Value.Id == EditingExecutor.Id))
+            if (Option == ModifingOption.Edit)
             {
-                Executors.First(t => t.Value.Id == EditingExecutor.Id).Value = EditingExecutor;
+                SelectedExecutor.Value = EditingExecutor;
                 Executors = new ObservableCollection<CanModifyWrapper<Executor>>(Executors);
             }
-            else
+            else if (Option == ModifingOption.Add)
             {
                 Executors.Add(new CanModifyWrapper<Executor>() { Value = EditingExecutor, CanDelete = true, CanEdit = true });
             }
-    (EditingExecutor as INotifyPropertyChanged).PropertyChanged -= EditingItemEdited;
+            (EditingExecutor as INotifyPropertyChanged).PropertyChanged -= EditingItemEdited;
             EditingExecutor = new Executor();
             ReloadLinksLocal();
         }
         public void SaveTask()
         {
-            if (Tasks.Any(t => t.Value.Id == EditingTask.Id))
+            if (Option == ModifingOption.Edit)
             {
-                Tasks.First(t => t.Value.Id == EditingTask.Id).Value = EditingTask;
+                SelectedTask.Value = EditingTask;
                 Tasks = new ObservableCollection<CanModifyWrapper<TaskInstance>>(Tasks);
             }
-            else
+            else if (Option == ModifingOption.Add)
             {
                 Tasks.Add(new CanModifyWrapper<TaskInstance>() { Value = EditingTask, CanDelete = true, CanEdit = true });
             }
@@ -221,14 +249,24 @@ namespace KursovayaRabota.Models
         #endregion
 
         #region HelpMethods
+
+        private void SetSelectedItem(object value)
+        {
+            LastSelectedItem = value as CanModifyWrapper<ICompanySegment>;
+        }
         private void EditingItemEdited(object sender, PropertyChangedEventArgs e)
         {
             OnEditingItemEdited(sender,e);
         }
         private void ReloadLinksLocal()
         {
+            //Reload can modifies
             Executors.ToList().ForEach(executor => { executor.CanDelete = !Tasks.Any(task => task.Value.Executor == executor.Value); executor.CanEdit = executor.CanDelete; });
             Teams.ToList().ForEach(team => { team.CanDelete = !Executors.Any(executor => executor.Value.Team == team.Value); team.CanEdit = team.CanDelete; });
+
+            // fix(remove) unnessesery links
+            Executors.ToList().ForEach(executor => executor.Value.Tasks.RemoveAll(t => !Tasks.Any(tas => t.Id == tas.Value.Id)));
+            Teams.ToList().ForEach(team => team.Value.Executors.RemoveAll(e => !Executors.Any(ex=>e.Id==ex.Value.Id)));
         }
         public void InnitByCanModifyDataObject(CanModifyDataObject canDataObject)
         {

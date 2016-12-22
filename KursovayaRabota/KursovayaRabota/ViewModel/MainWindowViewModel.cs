@@ -34,8 +34,6 @@ namespace KursovayaRabota.ViewModel
 
         public bool ShowInfo { get; set; }
 
-        public bool Link { get; set; }
-
         public EPost[] Posts { get; set; } = StringHelper.EnumParser.GetEnums<EPost>();
         public ETaskImportance[] TaskImportances { get; set; } = StringHelper.EnumParser.GetEnums<ETaskImportance>();
         public ETaskState[] TaskStates { get; set; } = StringHelper.EnumParser.GetEnums<ETaskState>();
@@ -112,14 +110,14 @@ namespace KursovayaRabota.ViewModel
         public DelegateCommand<dynamic> SelectedListCommand
              => this.selectedlistCommand ?? (this.selectedlistCommand = new DelegateCommand<dynamic>(OnSelectedList));
 
-        private void OnSelectedList(dynamic task)
+        private void OnSelectedList(dynamic item)
         {
-            if (task!=null)
+            if (item!=null)
             MainModelInstance.LastSelectedItem = new CanModifyWrapper<ICompanySegment>
             {
-                Value = task.Value,
-                CanEdit = task.CanEdit,
-                CanDelete = task.CanDelete
+                Value = item.Value,
+                CanEdit = item.CanEdit,
+                CanDelete = item.CanDelete
             };
         }
         #endregion
@@ -232,7 +230,7 @@ namespace KursovayaRabota.ViewModel
 
         private void DownloadDataFromDataBase()
         {
-            MainModelInstance.InnitByCanModifyDataObject(new DataBaseManager().LoadFromDataBase());
+            MainModelInstance.InnitByCanModifyDataObject(new DataBaseManager().DownloadData());
             MessageBox.Show("Data has been downloaded successfuly from the database","Success",MessageBoxButton.OK,MessageBoxImage.Information);
         }
 

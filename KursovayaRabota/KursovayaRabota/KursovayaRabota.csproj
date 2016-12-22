@@ -94,6 +94,7 @@
     <Compile Include="Converters\CanModifyTaskConverter.cs" />
     <Compile Include="Converters\CanModifyExecutorConverter.cs" />
     <Compile Include="Converters\CanModifyTeamConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\EnumToCollectionConverter.cs" />
     <Compile Include="DataBase\DataContext.cs" />
     <Compile Include="DataBase\CanModifyDataObject.cs" />

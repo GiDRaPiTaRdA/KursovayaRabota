@@ -5,3 +5,10 @@ C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StringHelp
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StringHelper\obj\Debug\StringHelper.csprojResolveAssemblyReference.cache
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StringHelper\obj\Debug\StringHelper.dll
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StringHelper\obj\Debug\StringHelper.pdb
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\bin\Debug\StringHelper.dll
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\bin\Debug\StringHelper.pdb
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\bin\Debug\StaticResourse.dll
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\bin\Debug\StaticResourse.pdb
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\obj\Debug\StringHelper.csprojResolveAssemblyReference.cache
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\obj\Debug\StringHelper.dll
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StringHelper\obj\Debug\StringHelper.pdb

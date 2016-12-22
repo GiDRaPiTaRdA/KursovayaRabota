@@ -23,6 +23,7 @@
         <converters:CanModifyTeamConverter x:Key="CanModifyTeamConverter" />
         <converters:CanModifyExecutorConverter x:Key="CanModifyExecutorConverter" />
         <converters:CanModifyTaskConverter x:Key="CanModifyTaskConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
 
         <Path x:Key="IconAdd"
@@ -364,12 +365,12 @@
                              Margin="2" />
         </ControlTemplate>
         <ControlTemplate x:Key="SaveButtonTemplate">
-            <Grid>  
+            <Grid>
                 <TextBlock Text="Save"/>
                 <ContentControl  Content="{StaticResource ExitButtonIcon}"
                              Margin="2" />
             </Grid>
-             
+
         </ControlTemplate>
 
 
@@ -458,7 +459,7 @@
                                               HorizontalAlignment="Stretch"
                                               VerticalAlignment="Stretch"
                                               Background="{DynamicResource ControlsBackgroungRadialBrush}"
-                                              IsChecked="{Binding Path=Link ,Mode=TwoWay}">
+                                              IsChecked="{Binding Path=MainModelInstance.Link ,Mode=TwoWay}">
                                 </ToggleButton>
                                 <ControlTemplate.Triggers>
 
@@ -633,6 +634,9 @@
                                                                         CommandParameter="{Binding MainModelInstance.SelectedTeam}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
+                                        <ListBox.InputBindings>
+                                            <KeyBinding Key="Delete" Command="{Binding DeleteItemCommand}"/>
+                                        </ListBox.InputBindings>
                                     </ListBox>
 
                                 </Border>
@@ -659,6 +663,9 @@
                                                                         CommandParameter="{Binding MainModelInstance.SelectedExecutor}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
+                                        <ListBox.InputBindings>
+                                            <KeyBinding Key="Delete" Command="{Binding DeleteItemCommand}"/>
+                                        </ListBox.InputBindings>
                                     </ListBox>
                                 </Border>
                             </Grid>
@@ -682,6 +689,175 @@
                                             <i:EventTrigger EventName="MouseUp">
                                                 <i:InvokeCommandAction  Command="{Binding SelectedListCommand}"
                                                                         CommandParameter="{Binding MainModelInstance.SelectedTask}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.InputBindings>
+                                            <KeyBinding Key="Delete" Command="{Binding DeleteItemCommand}"/>
+                                        </ListBox.InputBindings>
+                                    </ListBox>
+
+
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+                <!--LinkedLists-->
+                <Grid Column="1" 
+                      Visibility="{Binding MainModelInstance.Link, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border CornerRadius="10,0,10,0" 
+                            BorderBrush="Black" 
+                            Margin="5" 
+                            Background="{StaticResource PanelColor}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <!--_________Titles-->
+                            <!--Teams-->
+                            <Grid Column="0" 
+                                    Row="0" 
+                                    Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" 
+                                            Text="TEAMS" 
+                                            VerticalAlignment="Bottom" 
+                                            HorizontalAlignment="Stretch" 
+                                            TextAlignment="Center" 
+                                            Style="{StaticResource TextBoxStyle}" />
+
+                                <Button Grid.Column="2" 
+                                        Style="{StaticResource AddButtonStyle}" 
+                                        Command="{Binding AddTeamCommand}" 
+                                        ToolTip="Add team" />
+
+
+                            </Grid>
+                            <!--Executors-->
+                            <Grid Column="1" 
+                                Row="0" 
+                                Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                        Text="EXECUTORS" 
+                                        VerticalAlignment="Bottom" 
+                                        HorizontalAlignment="Stretch" 
+                                        TextAlignment="Center" 
+                                        Style="{StaticResource TextBoxStyle}" />
+
+                                <Button Grid.Column="2" 
+                                        Style="{StaticResource AddButtonStyle}" 
+                                        Command="{Binding AddExecutorCommand}" 
+                                        ToolTip="Add executor" />
+                            </Grid>
+                            <!--Tasks-->
+                            <Grid Column="2" 
+                                    Row="0" 
+                                    Margin="10,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                            Text="TASKS" 
+                                            VerticalAlignment="Bottom" 
+                                            HorizontalAlignment="Stretch" 
+                                            TextAlignment="Center" 
+                                            Style="{StaticResource TextBoxStyle}" />
+                                <Button Grid.Column="2" 
+                                        Style="{StaticResource AddButtonStyle}" 
+                                        Command="{Binding AddTaskCommand}" 
+                                        ToolTip="Add task" />
+                            </Grid>
+
+                            <!--__________LISTS-->
+                            <!--Teams-->
+                            <Grid Column="0" 
+                                    Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}" 
+                                                Margin="5,0,5,5" 
+                                                CornerRadius="10,0,10,0" 
+                                                BorderBrush="Transparent">
+
+                                    <ListBox HorizontalContentAlignment="Stretch" 
+                                                BorderBrush="Transparent" 
+                                                Background="Transparent" 
+                                                ItemTemplate="{StaticResource TeamListItem}" 
+                                                ItemsSource="{Binding Path=MainModelInstance.Teams}" 
+                                                SelectedItem="{Binding Path=MainModelInstance.SelectedTeam}" 
+                                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction Command="{Binding SelectedListCommand}" 
+                                                    CommandParameter="{Binding MainModelInstance.SelectedTeam}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+
+                                </Border>
+
+                            </Grid>
+                            <!--Executors-->
+                            <Grid Column="1" 
+                                    Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}" 
+                                            Margin="5,0,5,5" 
+                                            CornerRadius="10,0,10,0" 
+                                            BorderBrush="Transparent">
+
+                                    <ListBox HorizontalContentAlignment="Stretch" 
+                                                    BorderBrush="Transparent" 
+                                                    Background="Transparent" 
+                                                    ItemTemplate="{StaticResource ExecutorListItem}" 
+                                                    ItemsSource="{Binding Path=MainModelInstance.LinkExecutors}" 
+                                                    SelectedItem="{Binding Path=MainModelInstance.SelectedExecutor}" 
+                                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction Command="{Binding SelectedListCommand}" 
+                                                    CommandParameter="{Binding MainModelInstance.SelectedExecutor}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+                                </Border>
+                            </Grid>
+                            <!--Tasks-->
+                            <Grid Column="2" 
+                                    Row="1">
+                                <Border Background="{StaticResource ControlsBackgroungRadialBrush}" 
+                                        Margin="5,0,5,5" 
+                                        CornerRadius="10,0,10,0"
+                                        BorderBrush="Transparent">
+
+                                    <ListBox 
+                                        HorizontalContentAlignment="Stretch" 
+                                        BorderBrush="Transparent" 
+                                        Background="Transparent" 
+                                        ItemTemplate="{StaticResource TaskListItem}" 
+                                        ItemsSource="{Binding Path=MainModelInstance.LinkTasks,UpdateSourceTrigger=PropertyChanged}" 
+                                        SelectedItem="{Binding Path=MainModelInstance.SelectedTask}" 
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction Command="{Binding SelectedListCommand}" 
+                                                    CommandParameter="{Binding MainModelInstance.SelectedTask}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </ListBox>

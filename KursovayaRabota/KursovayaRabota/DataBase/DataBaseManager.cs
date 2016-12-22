@@ -27,7 +27,7 @@ namespace KursovayaRabota.DataBase
             manager = new DataManager();
         }
 
-        public CanModifyDataObject LoadFromDataBase()
+        public CanModifyDataObject DownloadData()
         {
             DataManager manager = new DataManager();
 
@@ -46,6 +46,16 @@ namespace KursovayaRabota.DataBase
             {
                 DataManager dataManager = new DataManager();
 
+                //dataManager.GetTeams().ForEach(item => dataManager.DelTeam(item));
+                //dataManager.GetExecutors().ForEach(item => dataManager.DelExecutor(item));
+                //dataManager.GetTasks().ForEach(item => dataManager.DelTask(item));
+
+                //dataManager.ApplyChanges();
+
+                //CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Teams).ForEach(item => dataManager.AddTeam(item));
+                //CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Executors).ForEach(item => dataManager.AddExecutor(item));
+                //CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Tasks).ForEach(item => dataManager.AddTask(item));
+
                 dataManager.SyncTasks(CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Tasks));
                 dataManager.SyncExecutors(CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Executors));
                 dataManager.SyncTeams(CanModifyWraperManager.UnPackCanModifyWrapper(canDataObject.Teams));
@@ -53,7 +63,7 @@ namespace KursovayaRabota.DataBase
                 dataManager.ApplyChanges();
 
             }
-            catch (Exception e) { success = false; }
+            catch (Exception) { success = false; }
             return success;
         }
         public bool UploadData(DataObject dataObject)

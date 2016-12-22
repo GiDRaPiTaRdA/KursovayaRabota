@@ -2,3 +2,8 @@ C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StaticReso
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StaticResourse\bin\Debug\StaticResourse.pdb
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StaticResourse\obj\Debug\StaticResourse.dll
 C:\Users\Maksim\documents\visual studio 2015\Projects\KursovayaRabota\StaticResourse\obj\Debug\StaticResourse.pdb
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StaticResourse\bin\Debug\StaticResourse.dll
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StaticResourse\bin\Debug\StaticResourse.pdb
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StaticResourse\obj\Debug\StaticResourse.csprojResolveAssemblyReference.cache
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StaticResourse\obj\Debug\StaticResourse.dll
+C:\Users\Maxim\Source\Repos\KursovayaRabota\KursovayaRabota\StaticResourse\obj\Debug\StaticResourse.pdb
